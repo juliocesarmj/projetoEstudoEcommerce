@@ -10,12 +10,12 @@ import com.juliomoraes.entities.Cliente;
 @Repository
 public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
 	
-	@Query("from Cliente m where m.email = :param")
+	@Query("from Cliente m join m.endereco e where m.email = :param")
 	Cliente findByEmail(@Param("param") String email);
 	
-	@Query("from Cliente m where m.email = :paramEmail and m.senha = :paramSenha")
+	@Query("from Cliente m join m.endereco e where m.email = :paramEmail and m.senha = :paramSenha")
 	Cliente findByEmailAndSenha(@Param("paramEmail") String email, @Param("paramSenha") String senha);
 	
-	@Query("from Cliente c where c.cpf = :param")
+	@Query("from Cliente c join c.endereco e where c.cpf = :param")
 	Cliente findByCpf(@Param("param") String cpf);
 }

@@ -1,6 +1,7 @@
 package com.juliomoraes.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.juliomoraes.dtos.clientes.ClientePostDTO;
-import com.juliomoraes.repositories.IClienteRepository;
+import com.juliomoraes.services.cliente.ClienteService;
 
 @RestController
 @RequestMapping("/api/clientes")
 public class ClientesController {
 	
 	@Autowired
-	private IClienteRepository repository;
+	private ClienteService service;
 	
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<String> post(@RequestBody ClientePostDTO dto) {
-		return null;
+	public ResponseEntity<Boolean> post(@RequestBody ClientePostDTO dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(dto));
 	}
 	
 	@CrossOrigin
